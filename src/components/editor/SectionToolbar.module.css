@@ -1,0 +1,113 @@
+.toolbar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #1e1e2e;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.15s, transform 0.15s;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: #a1a1aa;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.btnDanger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 2px;
+}
+
+.variantSelect {
+  height: 28px;
+  padding: 0 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-radius: 5px;
+  color: #a1a1aa;
+  font-size: 0.6875rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.variantSelect:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.typeLabel {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  background: #1e1e2e;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.labelVisible {
+  opacity: 1;
+}
+
+/* Wrapper */
+.wrapper {
+  position: relative;
+}
+
+.wrapper:hover .toolbar {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.wrapper:hover .typeLabel {
+  opacity: 1;
+}
+
+.selected {
+  outline: 2px solid #635bff;
+  outline-offset: -2px;
+}

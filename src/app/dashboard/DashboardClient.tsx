@@ -86,10 +86,17 @@ export default function DashboardClient({
                 </p>
                 <div className={styles.cardActions}>
                   <Link
-                    href={`/preview/${site.id}`}
+                    href={`/editor/${site.id}`}
                     className={styles.cardLink}
                   >
-                    Open &rarr;
+                    Edit &rarr;
+                  </Link>
+                  <Link
+                    href={`/preview/${site.id}`}
+                    target="_blank"
+                    className={styles.previewLink}
+                  >
+                    Preview
                   </Link>
                   <button
                     className={styles.deleteBtn}

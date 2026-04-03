@@ -166,6 +166,17 @@
   background: rgba(239, 68, 68, 0.06);
 }
 
+.previewLink {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8;
+  transition: color 0.15s;
+}
+
+.previewLink:hover {
+  color: #425466;
+}
+
 /* Empty state */
 .empty {
   text-align: center;
