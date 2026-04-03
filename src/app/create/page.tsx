@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { UserInput } from "@/types/site-config";
 import s from "./create.module.css";
+
+const STORAGE_KEY = "freelance-ez-draft";
 
 const INDUSTRIES = [
   "Technology",
@@ -68,6 +70,78 @@ export default function CreatePage() {
   const [preferDarkMode, setPreferDarkMode] = useState(false);
   const [wantBlog, setWantBlog] = useState(false);
   const [wantCaseStudies, setWantCaseStudies] = useState(false);
+
+  // --- Persist form to localStorage ---
+  function getFormState() {
+    return {
+      companyName, industry, tagline, description,
+      services, products,
+      contactEmail, contactPhone, contactAddress, city, country, whatsapp,
+      linkedin, twitter, instagram, facebook,
+      designDescription, preferDarkMode, wantBlog, wantCaseStudies,
+    };
+  }
+
+  function loadFormState(data: ReturnType<typeof getFormState>) {
+    if (data.companyName) setCompanyName(data.companyName);
+    if (data.industry) setIndustry(data.industry);
+    if (data.tagline) setTagline(data.tagline);
+    if (data.description) setDescription(data.description);
+    if (data.services?.length) setServices(data.services);
+    if (data.products?.length) setProducts(data.products);
+    if (data.contactEmail) setContactEmail(data.contactEmail);
+    if (data.contactPhone) setContactPhone(data.contactPhone);
+    if (data.contactAddress) setContactAddress(data.contactAddress);
+    if (data.city) setCity(data.city);
+    if (data.country) setCountry(data.country);
+    if (data.whatsapp) setWhatsapp(data.whatsapp);
+    if (data.linkedin) setLinkedin(data.linkedin);
+    if (data.twitter) setTwitter(data.twitter);
+    if (data.instagram) setInstagram(data.instagram);
+    if (data.facebook) setFacebook(data.facebook);
+    if (data.designDescription) setDesignDescription(data.designDescription);
+    if (data.preferDarkMode) setPreferDarkMode(data.preferDarkMode);
+    if (data.wantBlog) setWantBlog(data.wantBlog);
+    if (data.wantCaseStudies) setWantCaseStudies(data.wantCaseStudies);
+  }
+
+  // Load saved draft on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) loadFormState(JSON.parse(saved));
+    } catch { /* ignore */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auto-save on step change
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(getFormState()));
+    } catch { /* ignore */ }
+  });
+
+  function handleImportText() {
+    const text = window.prompt(
+      "Paste your company info as JSON or plain text.\n\nJSON format: { companyName, industry, description, services: [{name, description}], contactEmail, country, designDescription }\n\nOr just paste a text description and we'll do our best."
+    );
+    if (!text) return;
+
+    try {
+      const parsed = JSON.parse(text);
+      loadFormState(parsed);
+    } catch {
+      // Not JSON — try to extract basic info from plain text
+      setDescription(text);
+    }
+  }
+
+  function handleExportJSON() {
+    const json = JSON.stringify(buildInput(), null, 2);
+    navigator.clipboard.writeText(json).then(() => {
+      alert("Copied to clipboard! You can save this and import it later.");
+    });
+  }
 
   // --- Service helpers ---
   function updateService(i: number, field: keyof Service, value: string) {
@@ -164,7 +238,9 @@ export default function CreatePage() {
       if (!res.ok) {
         throw new Error(data.error || "Generation failed");
       }
-      router.push(`/preview/${data.siteId}`);
+      // Clear draft after successful generation
+      localStorage.removeItem(STORAGE_KEY);
+      router.push(`/editor/${data.siteId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);
@@ -178,6 +254,9 @@ export default function CreatePage() {
         return (
           <>
             <p className={s.stepHeading}>Tell us about your company</p>
+            <button type="button" className={s.importBtn} onClick={handleImportText}>
+              Import from text / JSON
+            </button>
             <div className={s.formGroup}>
               <label className={s.label} htmlFor="companyName">
                 Company Name
@@ -607,6 +686,10 @@ export default function CreatePage() {
               </p>
             </div>
 
+            <button type="button" className={s.importBtn} onClick={handleExportJSON}>
+              Copy as JSON (save for later)
+            </button>
+
             {error && <div className={s.error}>{error}</div>}
           </>
         );
@@ -629,8 +712,8 @@ export default function CreatePage() {
 
       {/* Header */}
       <div className={s.header}>
-        <Link href="/" className={s.backLink}>
-          &larr; Back
+        <Link href="/dashboard" className={s.backLink}>
+          &larr; Dashboard
         </Link>
         <h1 className={s.title}>Create your website</h1>
         <p className={s.subtitle}>
