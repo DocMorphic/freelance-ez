@@ -241,7 +241,7 @@ const contactSectionSchema = z.object({
   formTypes: z.array(z.object({
     id: z.string(),
     label: z.string(),
-    fields: z.array(formFieldSchema).min(1),
+    fields: z.array(formFieldSchema),
   })).optional(),
   showContactInfo: z.boolean(),
   showWhatsApp: z.boolean(),

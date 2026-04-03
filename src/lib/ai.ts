@@ -116,6 +116,22 @@ function validateSiteConfig(raw: string): {
     };
   }
 
+  // Pre-validation cleanup: filter out empty formTypes fields
+  const obj = parsed as Record<string, unknown>;
+  if (obj.pages && Array.isArray(obj.pages)) {
+    for (const page of obj.pages as Record<string, unknown>[]) {
+      if (page.sections && Array.isArray(page.sections)) {
+        for (const section of page.sections as Record<string, unknown>[]) {
+          if (section.type === "contact" && Array.isArray(section.formTypes)) {
+            section.formTypes = (section.formTypes as Record<string, unknown>[]).filter(
+              (ft) => Array.isArray(ft.fields) && ft.fields.length > 0
+            );
+          }
+        }
+      }
+    }
+  }
+
   const result = siteConfigSchema.safeParse(parsed);
 
   if (result.success) {
