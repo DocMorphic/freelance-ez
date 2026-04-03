@@ -1,0 +1,216 @@
+.page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0a2540;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  border-bottom: 1px solid #e6ebf1;
+}
+
+.navBrand {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: #0a2540;
+  letter-spacing: -0.01em;
+}
+
+.navBrand span {
+  font-weight: 400;
+  color: #425466;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.userEmail {
+  font-size: 0.8125rem;
+  color: #425466;
+}
+
+.logoutBtn {
+  padding: 0.375rem 0.875rem;
+  background: none;
+  border: 1px solid #e6ebf1;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #425466;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.logoutBtn:hover {
+  border-color: #0a2540;
+  color: #0a2540;
+}
+
+/* Content */
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0a2540;
+  letter-spacing: -0.02em;
+}
+
+.newSiteBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1.125rem;
+  background: #635bff;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.newSiteBtn:hover {
+  background: #5046e5;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.card {
+  border: 1px solid #e6ebf1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card:hover {
+  border-color: #d0d5dd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cardName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a2540;
+}
+
+.cardDate {
+  font-size: 0.8125rem;
+  color: #425466;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #635bff;
+  margin-top: auto;
+  transition: color 0.15s;
+}
+
+.cardLink:hover {
+  color: #5046e5;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.emptyTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0a2540;
+  margin-bottom: 0.5rem;
+}
+
+.emptyText {
+  font-size: 0.9375rem;
+  color: #425466;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: #635bff;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.emptyBtn:hover {
+  background: #5046e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 91, 255, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 1.25rem;
+  }
+
+  .content {
+    padding: 2rem 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navRight {
+    gap: 0.75rem;
+  }
+
+  .userEmail {
+    display: none;
+  }
+}
