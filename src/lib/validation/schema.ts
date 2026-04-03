@@ -237,7 +237,7 @@ const contactSectionSchema = z.object({
   variant: z.union([z.literal(0), z.literal(1)]),
   heading: z.string().min(1),
   description: z.string().optional(),
-  formFields: z.array(formFieldSchema).min(1),
+  formFields: z.array(formFieldSchema),
   formTypes: z.array(z.object({
     id: z.string(),
     label: z.string(),
