@@ -8,12 +8,12 @@ export async function middleware(request: NextRequest) {
 
   // Allow public paths
   if (PUBLIC_PATHS.includes(pathname)) {
-    return NextResponse.next();
+    return updateSession(request);
   }
 
-  // Allow API routes (they handle their own auth)
+  // Allow API routes
   if (pathname.startsWith("/api/")) {
-    return NextResponse.next();
+    return updateSession(request);
   }
 
   // Allow static assets
@@ -21,7 +21,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check auth for protected routes
+  // For protected routes, check auth
+  return updateSession(request, true);
+}
+
+async function updateSession(request: NextRequest, requireAuth = false) {
   let response = NextResponse.next({
     request: { headers: request.headers },
   });
@@ -49,11 +53,12 @@ export async function middleware(request: NextRequest) {
     }
   );
 
+  // This refreshes the session if expired and sets new cookies via setAll
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (requireAuth && !user) {
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("redirect", pathname);
+    loginUrl.searchParams.set("redirect", request.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);
   }
 

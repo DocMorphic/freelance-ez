@@ -27,7 +27,7 @@ export default function Home() {
           Enter your company details. AI generates a complete, polished website
           — ready to customize and deploy.
         </p>
-        <Link href="/create" className={styles.btnPrimary}>
+        <Link href="/signup" className={styles.btnPrimary}>
           Build Your Site <ArrowRight size={16} />
         </Link>
         <div className={styles.chips}>
