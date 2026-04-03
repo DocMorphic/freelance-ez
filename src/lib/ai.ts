@@ -42,6 +42,8 @@ WhatsApp: ${whatsapp}
 Social: ${social}
 Design preference: "${input.designDescription}"
 Dark mode: ${input.preferDarkMode ? "Yes" : "No preference"}
+Include blog page: ${input.wantBlog ? "Yes - generate a blog page with 3-4 sample posts" : "No"}
+Include case studies: ${input.wantCaseStudies ? "Yes - generate a case studies page with 2-3 examples" : "No"}
 
 Pages to generate: Home, About, Services, Contact`;
 }

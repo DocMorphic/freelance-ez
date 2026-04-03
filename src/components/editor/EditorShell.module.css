@@ -195,6 +195,19 @@
   color: #635bff;
 }
 
+.adminInfo {
+  margin: 0.75rem 1rem 0;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid #e6ebf1;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+.adminInfo p {
+  margin: 0;
+}
+
 /* Main area */
 .main {
   overflow-y: auto;

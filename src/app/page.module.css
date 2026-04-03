@@ -2,7 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: transparent;
   color: #0a2540;
   overflow: hidden;
 }

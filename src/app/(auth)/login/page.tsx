@@ -4,6 +4,7 @@ import { FormEvent, Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-browser";
+import AnimatedBg from "@/components/platform/AnimatedBg";
 import styles from "../auth.module.css";
 
 function LoginForm() {
@@ -39,6 +40,7 @@ function LoginForm() {
 
   return (
     <div className={styles.wrapper}>
+      <AnimatedBg />
       <div className={styles.card}>
         <div className={styles.brand}>
           freelance<span>-ez</span>

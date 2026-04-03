@@ -9,6 +9,7 @@ import ThemeProvider from "@/components/template/ThemeProvider";
 import Navbar from "@/components/template/layout/Navbar/Navbar";
 import Footer from "@/components/template/layout/Footer/Footer";
 import WhatsAppButton from "@/components/template/shared/WhatsAppButton";
+import { useToast } from "@/components/platform/ToastProvider";
 import EditorPageRenderer from "./EditorPageRenderer";
 import ThemePanel from "./ThemePanel";
 import "@/components/template/template.css";
@@ -35,6 +36,8 @@ export default function EditorShell({ config: initialConfig, siteId }: EditorShe
   const setThemePanelOpen = useSiteStore((s) => s.setThemePanelOpen);
   const addPage = useSiteStore((s) => s.addPage);
 
+  const toast = useToast();
+
   const [addingPage, setAddingPage] = useState(false);
   const [exporting, setExporting] = useState(false);
 
@@ -55,15 +58,20 @@ export default function EditorShell({ config: initialConfig, siteId }: EditorShe
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Export failed");
+      toast.showToast(err instanceof Error ? err.message : "Export failed", "error");
     } finally {
       setExporting(false);
     }
   }
 
   async function handleAddPage() {
-    const prompt = window.prompt("Describe the page to add (e.g., 'Pricing page with 3 tiers')");
-    if (!prompt || !config) return;
+    if (!config) return;
+    const pagePrompt = await toast.promptImport({
+      title: "Add New Page",
+      description: "Describe the page (e.g., 'Pricing page with 3 tiers')",
+      placeholder: "Pricing page with Basic, Pro, and Enterprise tiers",
+    });
+    if (!pagePrompt) return;
 
     setAddingPage(true);
     try {
@@ -71,7 +79,7 @@ export default function EditorShell({ config: initialConfig, siteId }: EditorShe
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt,
+          prompt: pagePrompt,
           companyName: config.company.name,
           industry: config.company.industry,
         }),
@@ -81,7 +89,7 @@ export default function EditorShell({ config: initialConfig, siteId }: EditorShe
       addPage(page);
       setCurrentPage(page.slug);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to add page");
+      toast.showToast(err instanceof Error ? err.message : "Failed to add page", "error");
     } finally {
       setAddingPage(false);
     }
@@ -182,6 +190,9 @@ export default function EditorShell({ config: initialConfig, siteId }: EditorShe
         <button className={styles.addPageBtn} onClick={handleAddPage} disabled={addingPage}>
           {addingPage ? <><Loader2 size={12} /> Adding...</> : <><Plus size={12} /> Add Page</>}
         </button>
+        <div className={styles.adminInfo}>
+          <p>Admin page uses mock data in preview. Connect Supabase after export for real functionality.</p>
+        </div>
       </div>
 
       {/* Theme Panel */}

@@ -227,6 +227,16 @@ CRITICAL: Do NOT always default to dark-copper + playfair-inter. Match theme + f
   These are suggestions, not rules — use judgment based on the user's description.
 
 ═══════════════════════════════════════
+BLOG, CASE STUDIES & DARK MODE RULES
+═══════════════════════════════════════
+
+If the user requests a blog page (Include blog page: Yes), generate an additional page with slug 'blog', title 'Blog', containing a hero (variant 1) and a blogList section with 3-4 sample posts relevant to the industry.
+
+If the user requests case studies (Include case studies: Yes), generate an additional page with slug 'case-studies', title 'Case Studies', containing a hero (variant 1) and a caseStudies section with 2-3 detailed case studies.
+
+If the user prefers dark mode (Dark mode: Yes), you MUST select a dark-* theme preset. If dark mode is No or No preference, choose based on industry match.
+
+═══════════════════════════════════════
 CONTENT QUALITY RULES
 ═══════════════════════════════════════
 

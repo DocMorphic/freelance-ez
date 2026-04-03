@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { UserInput } from "@/types/site-config";
+import { useToast } from "@/components/platform/ToastProvider";
+import AnimatedBg from "@/components/platform/AnimatedBg";
 import s from "./create.module.css";
 
 const STORAGE_KEY = "freelance-ez-draft";
@@ -37,6 +39,7 @@ type Product = { name: string; description: string };
 
 export default function CreatePage() {
   const router = useRouter();
+  const toast = useToast();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -121,10 +124,12 @@ export default function CreatePage() {
     } catch { /* ignore */ }
   });
 
-  function handleImportText() {
-    const text = window.prompt(
-      "Paste your company info as JSON or plain text.\n\nJSON format: { companyName, industry, description, services: [{name, description}], contactEmail, country, designDescription }\n\nOr just paste a text description and we'll do our best."
-    );
+  async function handleImportText() {
+    const text = await toast.promptImport({
+      title: "Import Company Data",
+      description: "Paste JSON or plain text with your company details.",
+      placeholder: '{ "companyName": "..." }',
+    });
     if (!text) return;
 
     try {
@@ -139,7 +144,7 @@ export default function CreatePage() {
   function handleExportJSON() {
     const json = JSON.stringify(buildInput(), null, 2);
     navigator.clipboard.writeText(json).then(() => {
-      alert("Copied to clipboard! You can save this and import it later.");
+      toast.showToast("Copied to clipboard!", "success");
     });
   }
 
@@ -701,6 +706,7 @@ export default function CreatePage() {
 
   return (
     <div className={s.container}>
+      <AnimatedBg />
       {/* Loading overlay */}
       {loading && (
         <div className={s.loadingOverlay}>

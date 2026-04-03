@@ -1,7 +1,8 @@
 .page {
   min-height: 100vh;
-  background: #ffffff;
+  background: transparent;
   color: #0a2540;
+  position: relative;
 }
 
 /* Nav */

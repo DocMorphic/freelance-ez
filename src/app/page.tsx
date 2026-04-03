@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import AnimatedBg from "@/components/platform/AnimatedBg";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <div className={styles.page}>
+      <AnimatedBg />
       <nav className={styles.nav}>
         <div className={styles.navBrand}>
           freelance<span>-ez</span>

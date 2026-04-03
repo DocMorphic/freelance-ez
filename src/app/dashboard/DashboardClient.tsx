@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-browser";
+import { useToast } from "@/components/platform/ToastProvider";
+import AnimatedBg from "@/components/platform/AnimatedBg";
 import styles from "./dashboard.module.css";
 
 interface Site {
@@ -29,6 +31,7 @@ export default function DashboardClient({
   sites,
 }: DashboardClientProps) {
   const router = useRouter();
+  const toast = useToast();
 
   async function handleLogout() {
     const supabase = createClient();
@@ -37,13 +40,20 @@ export default function DashboardClient({
   }
 
   async function handleDelete(siteId: string, siteName: string) {
-    if (!window.confirm(`Delete "${siteName}"? This cannot be undone.`)) return;
+    const ok = await toast.confirm({
+      title: "Delete Site",
+      message: `Delete "${siteName}"? This cannot be undone.`,
+      confirmLabel: "Delete",
+      cancelLabel: "Keep",
+    });
+    if (!ok) return;
     await fetch(`/api/sites/${siteId}`, { method: "DELETE" });
     router.refresh();
   }
 
   return (
     <div className={styles.page}>
+      <AnimatedBg />
       <nav className={styles.nav}>
         <Link href="/dashboard" className={styles.navBrand}>
           freelance<span>-ez</span>

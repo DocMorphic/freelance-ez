@@ -2,6 +2,7 @@
 
 import { ChevronUp, ChevronDown, Copy, Trash2 } from "lucide-react";
 import { useSiteStore } from "@/store/site-store";
+import { useToast } from "@/components/platform/ToastProvider";
 import styles from "./SectionToolbar.module.css";
 
 const MAX_VARIANTS: Record<string, number> = {
@@ -23,6 +24,7 @@ export default function SectionToolbar({ sectionId, sectionType, variant }: Sect
   const removeSection = useSiteStore((s) => s.removeSection);
   const duplicateSection = useSiteStore((s) => s.duplicateSection);
   const updateSectionVariant = useSiteStore((s) => s.updateSectionVariant);
+  const { confirm } = useToast();
 
   const maxVariant = MAX_VARIANTS[sectionType] ?? 0;
 
@@ -61,8 +63,12 @@ export default function SectionToolbar({ sectionId, sectionType, variant }: Sect
         </button>
         <button
           className={`${styles.btn} ${styles.btnDanger}`}
-          onClick={() => {
-            if (window.confirm("Delete this section?")) {
+          onClick={async () => {
+            const ok = await confirm({
+              title: "Delete Section",
+              message: "Remove this section? You can undo with Ctrl+Z.",
+            });
+            if (ok) {
               removeSection(pageSlug, sectionId);
             }
           }}

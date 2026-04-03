@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase-browser";
+import AnimatedBg from "@/components/platform/AnimatedBg";
 import styles from "../auth.module.css";
 
 export default function SignupPage() {
@@ -61,6 +62,7 @@ export default function SignupPage() {
 
   return (
     <div className={styles.wrapper}>
+      <AnimatedBg />
       <div className={styles.card}>
         <div className={styles.brand}>
           freelance<span>-ez</span>
