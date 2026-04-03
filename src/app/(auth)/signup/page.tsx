@@ -48,7 +48,7 @@ export default function SignupPage() {
     // If the user is auto-confirmed (no email verification required),
     // redirect straight to dashboard
     if (data.session) {
-      router.push("/dashboard");
+      window.location.href = "/dashboard";
       return;
     }
 

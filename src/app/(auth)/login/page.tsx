@@ -33,7 +33,8 @@ function LoginForm() {
       return;
     }
 
-    router.push(redirect);
+    // Hard redirect to ensure middleware sees the fresh auth cookies
+    window.location.href = redirect;
   }
 
   return (
