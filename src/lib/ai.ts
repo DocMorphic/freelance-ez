@@ -5,7 +5,7 @@ import type { SiteConfig, UserInput } from "@/types/site-config";
 
 const genai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 
-const MODEL = "gemini-2.5-pro-preview-06-05";
+const MODEL = "gemini-2.5-pro";
 
 function buildUserPrompt(input: UserInput): string {
   const services = input.services

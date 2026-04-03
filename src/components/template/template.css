@@ -215,7 +215,7 @@
 }
 
 .t-card:hover {
-  border-color: var(--t-border-hover);
+  border-color: color-mix(in srgb, var(--t-primary) 30%, var(--t-border-hover));
   box-shadow: var(--t-shadow-lg);
   transform: translateY(-3px);
 }
@@ -333,6 +333,22 @@
 
 .t-text-muted {
   color: var(--t-text-muted);
+}
+
+/* Gradient text */
+.t-gradient-text {
+  background: linear-gradient(135deg, var(--t-primary), var(--t-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card variant */
+.t-card-glass {
+  background: color-mix(in srgb, var(--t-bg-card) 60%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--t-border) 50%, transparent);
 }
 
 /* ===== Animations ===== */

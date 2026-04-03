@@ -290,5 +290,30 @@ SEO
 CHOOSE THEME & FONTS WISELY
 ═══════════════════════════════════════
 
-Pick a theme preset and font pairing that match the user's industry, design description, and dark mode preference. Use the exact hex color values from the preset catalog above — do NOT invent custom colors. The mode field must match the preset (dark-* = "dark", light-* = "light").`;
+Pick a theme preset and font pairing that match the user's industry, design description, and dark mode preference. Use the exact hex color values from the preset catalog above — do NOT invent custom colors. The mode field must match the preset (dark-* = "dark", light-* = "light").
+
+═══════════════════════════════════════
+DESIGN UNIQUENESS — CRITICAL
+═══════════════════════════════════════
+
+Every generated site MUST feel unique. To achieve this:
+
+1. NEVER default to dark-copper + playfair-inter. Pick the theme and fonts that BEST match the specific industry:
+   - Tech/SaaS: dark-sapphire or dark-violet + space-grotesk-inter or montserrat-open-sans
+   - Health/Wellness: light-sage or light-forest + libre-baskerville-nunito
+   - Finance/Legal: dark-amber or dark-copper + dm-serif-dm-sans or playfair-inter
+   - Food/Hospitality: light-terracotta + poppins-work-sans
+   - Creative/Fashion: dark-rose or light-coral + raleway-lato
+   - Corporate/Agency: light-slate or light-ocean + montserrat-open-sans
+   - Education: light-ocean or light-forest + merriweather-source-sans
+
+2. Vary style parameters: mix borderRadius (sharp/soft/rounded), buttonStyle (solid/outline/pill), cardStyle (flat/bordered/elevated), and spacing (compact/normal/spacious). Do NOT always use the same combination.
+
+3. Vary section variants across pages:
+   - If home page hero is variant 0 (split), use variant 1 (centered) or 2 (minimal) on other pages
+   - Use different service variants (0, 1, 2) on home vs services page
+   - Mix testimonial variants — sometimes grid (0), sometimes featured quote (1)
+   - Use different CTA variants (0 = gradient, 1 = split) on different pages
+
+4. Vary section ORDER on the home page. Don't always use the same sequence. Some sites should lead with stats after hero, others with trust strip, others with services directly.`;
 }

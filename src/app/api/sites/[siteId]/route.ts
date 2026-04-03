@@ -47,3 +47,22 @@ export async function PUT(
 
   return NextResponse.json(data);
 }
+
+// DELETE — delete a site
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ siteId: string }> }
+) {
+  const { siteId } = await params;
+
+  const { error } = await supabase
+    .from("sites")
+    .delete()
+    .eq("id", siteId);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ deleted: true });
+}

@@ -33,7 +33,13 @@ export default function DashboardClient({
   async function handleLogout() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/login");
+    window.location.href = "/login";
+  }
+
+  async function handleDelete(siteId: string, siteName: string) {
+    if (!window.confirm(`Delete "${siteName}"? This cannot be undone.`)) return;
+    await fetch(`/api/sites/${siteId}`, { method: "DELETE" });
+    router.refresh();
   }
 
   return (
@@ -78,12 +84,20 @@ export default function DashboardClient({
                 <p className={styles.cardDate}>
                   Created {formatDate(site.created_at)}
                 </p>
-                <Link
-                  href={`/preview/${site.id}`}
-                  className={styles.cardLink}
-                >
-                  Open &rarr;
-                </Link>
+                <div className={styles.cardActions}>
+                  <Link
+                    href={`/preview/${site.id}`}
+                    className={styles.cardLink}
+                  >
+                    Open &rarr;
+                  </Link>
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => handleDelete(site.id, site.name)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>

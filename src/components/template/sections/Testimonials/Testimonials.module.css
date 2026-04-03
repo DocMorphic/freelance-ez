@@ -15,12 +15,14 @@
   transition: all var(--t-transition-normal);
   display: flex;
   flex-direction: column;
+  border-left: 3px solid color-mix(in srgb, var(--t-primary) 30%, transparent);
 }
 
 .testimonialCard:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px color-mix(in srgb, var(--t-primary) 10%, transparent);
   border-color: var(--t-border-hover);
+  border-left-color: var(--t-primary);
 }
 
 .quoteIcon {
