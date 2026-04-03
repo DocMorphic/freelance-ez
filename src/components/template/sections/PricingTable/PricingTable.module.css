@@ -1,0 +1,180 @@
+/* ===== PricingTable Section — Variant 0: 3-column pricing cards ===== */
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.pricingCard {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  transition: transform var(--t-transition-normal);
+}
+
+.pricingCard:hover {
+  transform: translateY(-2px);
+}
+
+.pricingCardHighlighted {
+  border-color: var(--t-primary);
+  box-shadow: 0 0 0 1px var(--t-primary), var(--t-shadow-lg);
+  position: relative;
+}
+
+.tierName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--t-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.tierPrice {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--t-primary);
+  font-family: var(--t-font-heading);
+  line-height: 1.2;
+}
+
+.tierPeriod {
+  font-size: 0.875rem;
+  color: var(--t-text-muted);
+  font-weight: 400;
+}
+
+.tierDescription {
+  font-size: 0.875rem;
+  color: var(--t-text-secondary);
+  line-height: 1.6;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.featureList {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--t-text-secondary);
+  line-height: 1.5;
+}
+
+.featureCheck {
+  color: var(--t-primary);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.pricingCta {
+  margin-top: auto;
+}
+
+/* ===== PricingTable Section — Variant 1: Comparison table ===== */
+
+.comparisonWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.comparisonTable th,
+.comparisonTable td {
+  padding: 1rem 1.25rem;
+  text-align: center;
+  border-bottom: 1px solid var(--t-border);
+}
+
+.comparisonTable th {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--t-text-primary);
+  background: var(--t-bg-secondary);
+}
+
+.comparisonTable td {
+  font-size: 0.875rem;
+  color: var(--t-text-secondary);
+}
+
+/* First column (feature names) is left-aligned */
+.comparisonTable th:first-child,
+.comparisonTable td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: var(--t-text-primary);
+}
+
+/* Highlighted tier column */
+.comparisonColHighlighted {
+  background: color-mix(in srgb, var(--t-primary) 5%, transparent);
+}
+
+.comparisonTierName {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--t-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.comparisonTierPrice {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--t-primary);
+  font-family: var(--t-font-heading);
+}
+
+.comparisonTierPeriod {
+  font-size: 0.75rem;
+  color: var(--t-text-muted);
+  font-weight: 400;
+}
+
+.comparisonCheckIcon {
+  color: var(--t-primary);
+}
+
+.comparisonDash {
+  color: var(--t-text-muted);
+}
+
+/* CTA row */
+.comparisonCtaRow td {
+  border-bottom: none;
+  padding-top: 1.25rem;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1024px) {
+  .pricingGrid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricingGrid {
+    max-width: 100%;
+  }
+}

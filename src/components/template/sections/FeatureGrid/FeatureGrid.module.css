@@ -1,0 +1,73 @@
+/* ===== FeatureGrid Section — Variant-specific styles ===== */
+/* Base template classes (t-card, t-card-icon, t-section-header, etc.) are global */
+
+/* === Variant 0: Icon + title + desc cards in a 4-col grid === */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.featureCard {
+  transition: transform var(--t-transition-normal);
+}
+
+.featureCard:hover {
+  transform: translateY(-2px);
+}
+
+/* === Variant 1: Checkmark list === */
+.checkList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: var(--t-primary);
+}
+
+.checkContent h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--t-text-primary);
+}
+
+.checkContent p {
+  font-size: 0.9375rem;
+  color: var(--t-text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkList {
+    grid-template-columns: 1fr;
+  }
+}

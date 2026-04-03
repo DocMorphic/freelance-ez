@@ -1,0 +1,129 @@
+/* ===== ProcessSteps Section — Variant-specific styles ===== */
+/* Base template classes (t-section-header, etc.) are global */
+
+/* === Variant 0: Numbered circles in a horizontal row === */
+.stepsRow {
+  display: grid;
+  grid-template-columns: repeat(var(--step-count, 3), 1fr);
+  gap: 2rem;
+  position: relative;
+}
+
+.step {
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+}
+
+/* Connecting line between steps */
+.step::after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: calc(50% + 36px);
+  width: calc(100% - 72px);
+  height: 2px;
+  background: var(--t-border);
+}
+
+.step:last-child::after {
+  display: none;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--t-primary), var(--t-primary-dark));
+  border-radius: 50%;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--t-primary) 25%, transparent);
+}
+
+.step h3 {
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 0.9375rem;
+  color: var(--t-text-muted);
+}
+
+/* === Variant 1: Vertical timeline === */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Vertical connecting line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--t-border);
+}
+
+.timelineStep {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  position: relative;
+}
+
+.timelineNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--t-primary), var(--t-primary-dark));
+  border-radius: 50%;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--t-primary) 25%, transparent);
+}
+
+.timelineContent {
+  padding-top: 0.75rem;
+}
+
+.timelineContent h3 {
+  margin-bottom: 0.5rem;
+}
+
+.timelineContent p {
+  font-size: 0.9375rem;
+  color: var(--t-text-muted);
+  line-height: 1.75;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .stepsRow {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .step::after {
+    display: none;
+  }
+}

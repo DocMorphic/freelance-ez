@@ -1,0 +1,423 @@
+/* ===== Hero Section — Shared + All Variants ===== */
+
+/* --- Shared base --- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--t-primary-alpha-8, rgba(255, 255, 255, 0.05));
+  animation: heroFadeIn 0.8s ease-out both;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    color-mix(in srgb, var(--t-primary) 8%, transparent) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: overlay;
+}
+
+/* --- Background helpers --- */
+
+.bgPrimary {
+  background: var(--t-bg-primary);
+}
+
+.bgSecondary {
+  background: var(--t-bg-secondary);
+}
+
+.bgTertiary {
+  background: var(--t-bg-tertiary);
+}
+
+/* --- Padding helpers --- */
+
+.padSm {
+  padding: 6rem 0 4rem;
+}
+
+.padMd {
+  padding: 8rem 0 5rem;
+}
+
+.padLg {
+  padding: 10rem 0 6rem;
+}
+
+/* --- Badge --- */
+
+.heroBadge {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.heroBadgeInner {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: color-mix(in srgb, var(--t-primary) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--t-primary) 20%, transparent);
+  border-radius: var(--t-radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--t-primary);
+}
+
+/* --- Title --- */
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  color: var(--t-text-primary);
+  font-family: var(--t-font-heading);
+  font-weight: 700;
+}
+
+.heroAccent {
+  color: var(--t-primary);
+}
+
+/* --- Description --- */
+
+.heroDescription {
+  font-size: 1.125rem;
+  color: var(--t-text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+/* --- CTA buttons --- */
+
+.heroCta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.heroCtaPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-family: var(--t-font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--t-btn-radius);
+  cursor: pointer;
+  transition: all var(--t-transition-normal);
+  border: none;
+  text-decoration: none;
+  background: var(--t-primary);
+  color: #ffffff;
+}
+
+.heroCtaPrimary:hover {
+  background: var(--t-primary-light);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: var(--t-shadow-accent);
+}
+
+.heroCtaSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-family: var(--t-font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: var(--t-btn-radius);
+  cursor: pointer;
+  transition: all var(--t-transition-normal);
+  text-decoration: none;
+  background: transparent;
+  color: var(--t-text-primary);
+  border: 1px solid var(--t-border-hover);
+}
+
+.heroCtaSecondary:hover {
+  border-color: var(--t-primary);
+  color: var(--t-primary);
+}
+
+/* --- Contact info row --- */
+
+.heroContact {
+  display: flex;
+  gap: 2rem;
+}
+
+.heroContactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--t-text-muted);
+  text-decoration: none;
+  transition: color var(--t-transition-fast);
+}
+
+.heroContactItem:hover {
+  color: var(--t-primary);
+}
+
+/* ============================================================
+   Variant 0 — Split (text left + visual card right)
+   ============================================================ */
+
+.heroSplit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 540px;
+}
+
+/* Visual card (right column) */
+
+.heroVisual {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.heroCard {
+  background: var(--t-card-bg);
+  border: var(--t-card-border);
+  border-radius: var(--t-radius-lg);
+  box-shadow: var(--t-shadow-xl, var(--t-shadow-lg));
+  width: 100%;
+  max-width: 360px;
+  overflow: hidden;
+}
+
+.heroCardHeader {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--t-bg-secondary);
+  border-bottom: 1px solid var(--t-border);
+}
+
+.heroCardDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--t-border-hover);
+}
+
+.heroCardDot:first-child {
+  background: #ef4444;
+}
+
+.heroCardDot:nth-child(2) {
+  background: var(--t-primary);
+}
+
+.heroCardDot:nth-child(3) {
+  background: #22c55e;
+}
+
+.heroCardContent {
+  padding: 1.5rem;
+}
+
+.heroCardLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--t-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.heroCardItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--t-border);
+  font-size: 0.9rem;
+  color: var(--t-text-secondary);
+}
+
+.heroCardItem:last-child {
+  border-bottom: none;
+}
+
+.heroCardCheck {
+  color: var(--t-primary);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Variant 1 — Centered (everything centered, no visual)
+   ============================================================ */
+
+.heroCentered {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.heroCentered .heroDescription {
+  max-width: 560px;
+}
+
+.heroCentered .heroCta {
+  justify-content: center;
+}
+
+.heroCentered .heroContact {
+  justify-content: center;
+}
+
+/* ============================================================
+   Variant 2 — Minimal (headline + description + single CTA)
+   ============================================================ */
+
+.heroMinimal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.heroMinimal .heroTitle {
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.035em;
+}
+
+.heroMinimal .heroDescription {
+  font-size: 1.1875rem;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  color: var(--t-text-secondary);
+}
+
+.heroMinimal .heroCta {
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .heroSplit {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .heroContent {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .heroContent .heroCta {
+    justify-content: center;
+  }
+
+  .heroContent .heroContact {
+    justify-content: center;
+  }
+
+  .heroVisual {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .padSm {
+    padding: 5rem 0 3rem;
+  }
+
+  .padMd {
+    padding: 6rem 0 3.5rem;
+  }
+
+  .padLg {
+    padding: 7rem 0 4rem;
+  }
+
+  .heroCta {
+    flex-direction: column;
+  }
+
+  .heroCtaPrimary,
+  .heroCtaSecondary {
+    width: 100%;
+  }
+
+  .heroContact {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .heroCentered .heroContact {
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+
+  .heroMinimal .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroDescription {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,48 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--t-primary), var(--t-primary-dark));
+  border-radius: var(--t-radius-sm);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.125rem;
+  font-family: var(--t-font-heading);
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.name {
+  font-family: var(--t-font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--t-text-primary);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.logo:hover .name {
+  color: var(--t-primary);
+}
+
+/* Small variant for footer */
+.small .mark {
+  width: 28px;
+  height: 28px;
+  font-size: 0.875rem;
+}
+
+.small .name {
+  font-size: 1.0625rem;
+}

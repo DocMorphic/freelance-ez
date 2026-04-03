@@ -1,0 +1,335 @@
+/* =============================================================
+   Navbar — shared + 3 variants (standard, centered, minimal)
+   All colors via var(--t-*) tokens from ThemeProvider
+   ============================================================= */
+
+/* ===== Shared ===== */
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.25rem 0;
+  transition: all 0.3s ease;
+  background: var(--t-bg-primary);
+}
+
+.header.transparent {
+  background: transparent;
+}
+
+.header.scrolled {
+  background: color-mix(in srgb, var(--t-bg-primary) 95%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.875rem 0;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--t-primary) 10%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--t-primary) 8%, transparent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--t-container-max);
+  margin: 0 auto;
+  padding: 0 var(--t-container-padding);
+}
+
+/* Logo — plain styled text */
+.logo {
+  text-decoration: none;
+  font-family: var(--t-font-heading);
+  font-weight: 700;
+  font-size: 1.375rem;
+  color: var(--t-text-primary);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.logo:hover {
+  color: var(--t-primary);
+}
+
+/* Desktop nav links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: var(--t-text-secondary);
+  font-family: var(--t-font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--t-text-primary);
+}
+
+/* CTA button in header */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-family: var(--t-font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: var(--t-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--t-btn-radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  background: var(--t-primary-light);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Hamburger menu button */
+.menuBtn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--t-text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 0;
+}
+
+/* Mobile overlay */
+.mobileNav {
+  display: none;
+}
+
+/* ===== Standard Variant ===== */
+/* Logo left | links center | CTA right */
+
+.standard .nav {
+  justify-content: space-between;
+}
+
+.standard .navLinks {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.standard .navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ===== Centered Variant ===== */
+/* Company name centered top, links row below */
+
+.centered .nav {
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.centered .topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.centered .logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+}
+
+.centered .navLinks {
+  justify-content: center;
+}
+
+.centered .navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ===== Minimal Variant ===== */
+/* Logo left | hamburger always visible, no desktop links */
+
+.minimal .nav {
+  justify-content: space-between;
+}
+
+.minimal .menuBtn {
+  display: flex;
+}
+
+.minimal .panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  width: 100%;
+}
+
+.minimal .panelOpen {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.minimal .panelInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem 0 0.5rem;
+  max-width: var(--t-container-max);
+  margin: 0 auto;
+  padding-left: var(--t-container-padding);
+  padding-right: var(--t-container-padding);
+}
+
+.minimal .panelLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.minimal .panelLink {
+  color: var(--t-text-secondary);
+  font-family: var(--t-font-body);
+  font-weight: 500;
+  font-size: 1.125rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 0.375rem 0;
+}
+
+.minimal .panelLink:hover {
+  color: var(--t-text-primary);
+}
+
+.minimal .panelCta {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+
+/* ===== Mobile Responsive (standard + centered) ===== */
+
+@media (max-width: 900px) {
+  /* Standard: hide desktop links + CTA, show hamburger */
+  .standard .navLinks,
+  .standard .ctaBtn {
+    display: none;
+  }
+
+  .standard .menuBtn {
+    display: flex;
+  }
+
+  /* Centered: collapse to single row, hide links row */
+  .centered .nav {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .centered .logo {
+    position: static;
+    transform: none;
+    font-size: 1.375rem;
+  }
+
+  .centered .navLinks,
+  .centered .ctaBtn {
+    display: none;
+  }
+
+  .centered .linksRow {
+    display: none;
+  }
+
+  .centered .menuBtn {
+    display: flex;
+  }
+
+  /* Mobile overlay — shared between standard + centered */
+  .mobileNav {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--t-bg-primary);
+    padding: 6rem 2rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: -1;
+  }
+
+  .mobileNavOpen {
+    transform: translateX(0);
+  }
+
+  .mobileNavLinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .mobileNavLink {
+    font-family: var(--t-font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--t-text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .mobileNavLink:hover {
+    color: var(--t-primary);
+  }
+
+  .mobileCta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    font-family: var(--t-font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    background: var(--t-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--t-btn-radius);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .mobileCta:hover {
+    background: var(--t-primary-light);
+    color: #ffffff;
+  }
+}

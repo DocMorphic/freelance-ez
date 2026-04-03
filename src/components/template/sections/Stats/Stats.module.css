@@ -1,0 +1,129 @@
+/* ===== Stats Section — Variant 0: Horizontal bar with dividers ===== */
+
+.statsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  padding: 0.5rem 2rem;
+}
+
+/* Dividers between items (not after the last one) */
+.statItem:not(:last-child) {
+  border-right: 1px solid var(--t-primary-alpha-20, rgba(255, 255, 255, 0.1));
+}
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-family: var(--t-font-heading);
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--t-primary), var(--t-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: var(--t-text-muted);
+  line-height: 1.4;
+}
+
+/* ===== Stats Section — Variant 1: Cards grid ===== */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.statCard {
+  background: var(--t-card-bg);
+  border: var(--t-card-border);
+  border-radius: var(--t-radius-lg);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--t-card-shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--t-transition-normal);
+}
+
+.statCard:hover {
+  box-shadow: var(--t-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.statCardValue {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--t-primary);
+  letter-spacing: -0.02em;
+  font-family: var(--t-font-heading);
+  line-height: 1.2;
+}
+
+.statCardLabel {
+  font-size: 0.9375rem;
+  color: var(--t-text-muted);
+  line-height: 1.4;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Variant 0: wrap to 2-col grid on mobile */
+  .statsBar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .statItem {
+    padding: 0.75rem 0;
+    border-right: none !important;
+  }
+
+  /* Add a subtle bottom border for top-row items */
+  .statItem:nth-child(-n+2) {
+    border-bottom: 1px solid var(--t-border);
+    padding-bottom: 1.5rem;
+  }
+
+  .statValue {
+    font-size: 2rem;
+  }
+
+  /* Variant 1: single column on small screens */
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .statValue {
+    font-size: 1.75rem;
+  }
+
+  .statCardValue {
+    font-size: 2.25rem;
+  }
+}

@@ -1,0 +1,148 @@
+/* ===== CTA Section — Variant 0: Centered with gradient background ===== */
+
+.ctaGradient {
+  background: linear-gradient(135deg, var(--t-primary-dark) 0%, var(--t-primary) 100%);
+  padding: var(--t-section-padding) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaGradientInner {
+  max-width: var(--t-container-max);
+  margin: 0 auto;
+  padding: 0 var(--t-container-padding);
+  text-align: center;
+}
+
+.ctaGradientContent {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ctaGradientContent h2 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.ctaGradientContent p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--t-font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--t-btn-radius);
+  cursor: pointer;
+  transition: all var(--t-transition-normal);
+  text-decoration: none;
+  background: #ffffff;
+  color: #111111;
+  border: none;
+}
+
+.ctaBtnPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--t-shadow-lg);
+  background: #f0f0f0;
+  color: #111111;
+}
+
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--t-font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: var(--t-btn-radius);
+  cursor: pointer;
+  transition: all var(--t-transition-normal);
+  text-decoration: none;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.ctaBtnSecondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ===== CTA Section — Variant 1: Split layout ===== */
+
+.ctaSplit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+}
+
+.ctaSplitText h2 {
+  margin-bottom: 0.75rem;
+}
+
+.ctaSplitText p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.ctaSplitActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 220px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 768px) {
+  .ctaGradient {
+    padding: 3rem 0;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ctaBtnPrimary,
+  .ctaBtnSecondary {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .ctaSplit {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .ctaSplitActions {
+    align-items: center;
+    min-width: unset;
+  }
+
+  .ctaSplitActions a {
+    width: 100%;
+    max-width: 320px;
+  }
+}
