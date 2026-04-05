@@ -53,10 +53,11 @@ async function updateSession(request: NextRequest, requireAuth = false) {
     }
   );
 
-  // This refreshes the session if expired and sets new cookies via setAll
-  const { data: { user } } = await supabase.auth.getUser();
+  // getSession reads from cookie and refreshes if expired — this triggers setAll
+  // which writes the new tokens back to the response cookies
+  const { data: { session } } = await supabase.auth.getSession();
 
-  if (requireAuth && !user) {
+  if (requireAuth && !session) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", request.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);
