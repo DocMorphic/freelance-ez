@@ -3,25 +3,28 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const PUBLIC_PATHS = ["/", "/login", "/signup"];
 
+const COOKIE_OPTIONS = {
+  maxAge: 60 * 60 * 24 * 30, // 30 days
+  path: "/",
+  sameSite: "lax" as const,
+  secure: true,
+};
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Allow public paths
   if (PUBLIC_PATHS.includes(pathname)) {
     return updateSession(request);
   }
 
-  // Allow API routes
   if (pathname.startsWith("/api/")) {
     return updateSession(request);
   }
 
-  // Allow static assets
   if (pathname.startsWith("/_next/") || pathname.includes(".")) {
     return NextResponse.next();
   }
 
-  // For protected routes, check auth
   return updateSession(request, true);
 }
 
@@ -46,18 +49,16 @@ async function updateSession(request: NextRequest, requireAuth = false) {
             request: { headers: request.headers },
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
+            response.cookies.set(name, value, { ...options, ...COOKIE_OPTIONS })
           );
         },
       },
     }
   );
 
-  // getSession reads from cookie and refreshes if expired — this triggers setAll
-  // which writes the new tokens back to the response cookies
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  if (requireAuth && !session) {
+  if (requireAuth && !user) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", request.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);
