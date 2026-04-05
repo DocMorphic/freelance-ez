@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { UserInput } from "@/types/site-config";
 import { useToast } from "@/components/platform/ToastProvider";
 import AnimatedBg from "@/components/platform/AnimatedBg";
 import s from "./create.module.css";
-
-const STORAGE_KEY = "freelance-ez-draft";
 
 const INDUSTRIES = [
   "Technology",
@@ -108,21 +106,7 @@ export default function CreatePage() {
     if (data.wantCaseStudies) setWantCaseStudies(data.wantCaseStudies);
   }
 
-  // Load saved draft on mount
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) loadFormState(JSON.parse(saved));
-    } catch { /* ignore */ }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Auto-save on step change
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(getFormState()));
-    } catch { /* ignore */ }
-  });
+  // No auto-load or auto-save — user can manually import/export via buttons
 
   async function handleImportText() {
     const text = await toast.promptImport({
@@ -243,8 +227,6 @@ export default function CreatePage() {
       if (!res.ok) {
         throw new Error(data.error || "Generation failed");
       }
-      // Clear draft after successful generation
-      localStorage.removeItem(STORAGE_KEY);
       router.push(`/editor/${data.siteId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
