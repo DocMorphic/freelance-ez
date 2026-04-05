@@ -13,7 +13,7 @@ export default function Providers({ children }: { children: ReactNode }) {
     const supabase = createClient();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event) => {
+      (event: string) => {
         if (event === "SIGNED_OUT") {
           router.push("/login");
         }
