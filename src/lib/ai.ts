@@ -124,10 +124,23 @@ function validateSiteConfig(raw: string): {
     for (const page of obj.pages as Record<string, unknown>[]) {
       if (page.sections && Array.isArray(page.sections)) {
         for (const section of page.sections as Record<string, unknown>[]) {
-          if (section.type === "contact" && Array.isArray(section.formTypes)) {
-            section.formTypes = (section.formTypes as Record<string, unknown>[]).filter(
-              (ft) => Array.isArray(ft.fields) && ft.fields.length > 0
-            );
+          // Default missing hero fields
+          if (section.type === "hero") {
+            if (!section.cta) {
+              section.cta = { primary: { text: "Get Started", href: "/contact" } };
+            }
+            if (section.showContactInfo === undefined) {
+              section.showContactInfo = false;
+            }
+          }
+          // Default missing contact heading
+          if (section.type === "contact") {
+            if (!section.heading) section.heading = "Contact Us";
+            if (Array.isArray(section.formTypes)) {
+              section.formTypes = (section.formTypes as Record<string, unknown>[]).filter(
+                (ft) => Array.isArray(ft.fields) && ft.fields.length > 0
+              );
+            }
           }
         }
       }

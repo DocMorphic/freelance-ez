@@ -119,8 +119,8 @@ const heroSectionSchema = z.object({
   cta: z.object({
     primary: z.object({ text: z.string(), href: z.string() }),
     secondary: z.object({ text: z.string(), href: z.string() }).optional(),
-  }),
-  showContactInfo: z.boolean(),
+  }).optional(),
+  showContactInfo: z.boolean().optional(),
   visualCard: z.object({
     title: z.string(),
     items: z.array(z.object({ icon: z.string().optional(), text: z.string() })),
@@ -235,7 +235,7 @@ const contactSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("contact"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   description: z.string().optional(),
   formFields: z.array(formFieldSchema),
   formTypes: z.array(z.object({
