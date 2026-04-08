@@ -116,17 +116,21 @@ export default function CreatePage() {
   async function handleImportText() {
     const text = await toast.promptImport({
       title: "Import Company Data",
-      description: "Paste JSON or plain text with your company details.",
-      placeholder: '{ "companyName": "..." }',
+      description: "Paste your company details as JSON.",
+      placeholder: '{\n  "companyName": "Acme Corp",\n  "industry": "Technology",\n  "description": "We build software.",\n  "services": [{ "name": "Web Dev", "description": "Full-stack" }],\n  "contactEmail": "hello@acme.com",\n  "country": "USA",\n  "designDescription": "Modern and clean"\n}',
     });
     if (!text) return;
 
+    const trimmed = text.trim();
     try {
-      const parsed = JSON.parse(text);
-      loadFormState(parsed);
-    } catch {
-      // Not JSON — try to extract basic info from plain text
-      setDescription(text);
+      const parsed = JSON.parse(trimmed);
+      if (typeof parsed === "object" && parsed !== null) {
+        loadFormState(parsed);
+      } else {
+        toast.showToast("Invalid JSON — expected an object", "error");
+      }
+    } catch (e) {
+      toast.showToast(`JSON parse error: ${e instanceof Error ? e.message : "Invalid JSON"}`, "error");
     }
   }
 
