@@ -121,11 +121,18 @@ export default function CreatePage() {
     });
     if (!text) return;
 
-    // Remove invisible control characters that textareas can introduce
-    const trimmed = text.trim().replace(/[\x00-\x1F\x7F]/g, (ch) => {
-      if (ch === '\n' || ch === '\r' || ch === '\t') return ch;
-      return '';
-    });
+    // Aggressively clean the pasted text:
+    // 1. Replace smart quotes with regular quotes
+    // 2. Replace non-breaking spaces with regular spaces
+    // 3. Strip zero-width characters and other invisible unicode
+    // 4. Strip control characters (except newline/tab)
+    const trimmed = text
+      .replace(/[\u2018\u2019]/g, "'")
+      .replace(/[\u201C\u201D]/g, '"')
+      .replace(/\u00A0/g, " ")
+      .replace(/[\u200B-\u200F\uFEFF]/g, "")
+      .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "")
+      .trim();
     try {
       const parsed = JSON.parse(trimmed);
       if (typeof parsed === "object" && parsed !== null) {
