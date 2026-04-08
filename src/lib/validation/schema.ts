@@ -101,9 +101,9 @@ const footerConfigSchema = z.object({
 // --- Base Section Fields ---
 
 const baseSectionFields = {
-  id: z.string().min(1),
-  background: sectionBackground,
-  paddingSize: sectionPadding,
+  id: z.string().optional(),
+  background: sectionBackground.optional(),
+  paddingSize: sectionPadding.optional(),
 };
 
 // --- Section Schemas ---
@@ -113,9 +113,9 @@ const heroSectionSchema = z.object({
   type: z.literal("hero"),
   variant: z.union([z.literal(0), z.literal(1), z.literal(2)]),
   badge: z.string().optional(),
-  headline: z.string().min(1),
+  headline: z.string().optional(),
   headlineAccent: z.string().optional(),
-  description: z.string().min(1),
+  description: z.string().optional(),
   cta: z.object({
     primary: z.object({ text: z.string(), href: z.string() }),
     secondary: z.object({ text: z.string(), href: z.string() }).optional(),
@@ -140,7 +140,7 @@ const servicesSectionSchema = z.object({
   type: z.literal("services"),
   variant: z.union([z.literal(0), z.literal(1), z.literal(2)]),
   label: z.string().optional(),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   description: z.string().optional(),
   items: z.array(z.object({
     icon: z.string(),
@@ -157,7 +157,7 @@ const productsSectionSchema = z.object({
   type: z.literal("products"),
   variant: z.union([z.literal(0), z.literal(1)]),
   label: z.string().optional(),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   description: z.string().optional(),
   items: z.array(z.object({
     name: z.string(),
@@ -172,7 +172,7 @@ const testimonialsSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("testimonials"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.object({
     quote: z.string(),
@@ -187,7 +187,7 @@ const faqSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("faq"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   description: z.string().optional(),
   items: z.array(z.object({ question: z.string(), answer: z.string() })).min(1),
@@ -197,13 +197,13 @@ const ctaSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("cta"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
-  description: z.string().min(1),
+  heading: z.string().optional(),
+  description: z.string().optional(),
   buttons: z.array(z.object({
     text: z.string(),
     href: z.string(),
     style: z.enum(["primary", "secondary"]),
-  })).min(1),
+  })),
 });
 
 const contentSectionSchema = z.object({
@@ -211,7 +211,7 @@ const contentSectionSchema = z.object({
   type: z.literal("content"),
   variant: z.union([z.literal(0), z.literal(1), z.literal(2)]),
   label: z.string().optional(),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   paragraphs: z.array(z.string()).min(1),
   sideCard: z.object({
     heading: z.string(),
@@ -251,7 +251,7 @@ const processStepsSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("processSteps"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   description: z.string().optional(),
   steps: z.array(z.object({
@@ -265,7 +265,7 @@ const featureGridSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("featureGrid"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.object({
     icon: z.string().optional(),
@@ -289,7 +289,7 @@ const teamSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("team"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   members: z.array(z.object({
     name: z.string(),
@@ -303,7 +303,7 @@ const caseStudiesSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("caseStudies"),
   variant: z.literal(0),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.object({
     title: z.string(),
@@ -320,7 +320,7 @@ const pricingTableSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("pricingTable"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   tiers: z.array(z.object({
     name: z.string(),
@@ -337,7 +337,7 @@ const gallerySectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("gallery"),
   variant: z.literal(0),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.object({
     title: z.string(),
@@ -350,7 +350,7 @@ const blogListSectionSchema = z.object({
   ...baseSectionFields,
   type: z.literal("blogList"),
   variant: z.union([z.literal(0), z.literal(1)]),
-  heading: z.string().min(1),
+  heading: z.string().optional(),
   label: z.string().optional(),
   showFeatured: z.boolean(),
   posts: z.array(z.object({

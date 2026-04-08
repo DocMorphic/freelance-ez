@@ -124,22 +124,140 @@ function validateSiteConfig(raw: string): {
     for (const page of obj.pages as Record<string, unknown>[]) {
       if (page.sections && Array.isArray(page.sections)) {
         for (const section of page.sections as Record<string, unknown>[]) {
-          // Default missing hero fields
-          if (section.type === "hero") {
-            if (!section.cta) {
-              section.cta = { primary: { text: "Get Started", href: "/contact" } };
-            }
-            if (section.showContactInfo === undefined) {
-              section.showContactInfo = false;
+          const s = section;
+
+          // Universal defaults for all sections
+          if (!s.id) s.id = `${s.type}-${Math.random().toString(36).slice(2, 8)}`;
+          if (!s.background) s.background = "primary";
+          if (!s.paddingSize) s.paddingSize = "lg";
+          if (s.variant === undefined) s.variant = 0;
+
+          // Hero defaults
+          if (s.type === "hero") {
+            if (!s.headline) s.headline = "Welcome";
+            if (!s.description) s.description = "We are here to help.";
+            if (!s.cta) s.cta = { primary: { text: "Get Started", href: "/contact" } };
+            if (s.showContactInfo === undefined) s.showContactInfo = false;
+          }
+
+          // Sections that need a heading
+          if (["services", "stats", "testimonials", "faq", "content", "processSteps",
+               "featureGrid", "team", "caseStudies", "pricingTable", "gallery",
+               "blogList", "products", "contact"].includes(s.type as string)) {
+            if (!s.heading) s.heading = s.type === "contact" ? "Contact Us" : "Learn More";
+          }
+
+          // CTA defaults
+          if (s.type === "cta") {
+            if (!s.heading) s.heading = "Get Started Today";
+            if (!s.description) s.description = "Reach out to learn more.";
+            if (!s.buttons || !Array.isArray(s.buttons) || (s.buttons as unknown[]).length === 0) {
+              s.buttons = [{ text: "Contact Us", href: "/contact", style: "primary" }];
             }
           }
-          // Default missing contact heading
-          if (section.type === "contact") {
-            if (!section.heading) section.heading = "Contact Us";
-            if (Array.isArray(section.formTypes)) {
-              section.formTypes = (section.formTypes as Record<string, unknown>[]).filter(
+
+          // Stats defaults
+          if (s.type === "stats") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ value: "100+", label: "Clients" }];
+            }
+            if (s.animated === undefined) s.animated = true;
+          }
+
+          // Services defaults
+          if (s.type === "services") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ icon: "Briefcase", title: "Our Service", description: "We deliver quality." }];
+            }
+          }
+
+          // Testimonials defaults
+          if (s.type === "testimonials") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ quote: "Great service!", name: "John Doe" }];
+            }
+          }
+
+          // FAQ defaults
+          if (s.type === "faq") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ question: "How can we help?", answer: "Contact us to learn more." }];
+            }
+          }
+
+          // ProcessSteps defaults
+          if (s.type === "processSteps") {
+            if (!s.steps || !Array.isArray(s.steps) || (s.steps as unknown[]).length === 0) {
+              s.steps = [{ number: "01", title: "Step One", description: "Get started." }];
+            }
+          }
+
+          // FeatureGrid defaults
+          if (s.type === "featureGrid") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ title: "Feature", description: "A great feature." }];
+            }
+          }
+
+          // Contact defaults
+          if (s.type === "contact") {
+            if (!s.formFields) s.formFields = [];
+            if (s.showContactInfo === undefined) s.showContactInfo = true;
+            if (s.showWhatsApp === undefined) s.showWhatsApp = false;
+            if (Array.isArray(s.formTypes)) {
+              s.formTypes = (s.formTypes as Record<string, unknown>[]).filter(
                 (ft) => Array.isArray(ft.fields) && ft.fields.length > 0
               );
+            }
+          }
+
+          // TrustStrip defaults
+          if (s.type === "trustStrip") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ icon: "Shield", title: "Trusted", description: "Verified" }];
+            }
+          }
+
+          // Team defaults
+          if (s.type === "team") {
+            if (!s.members || !Array.isArray(s.members) || (s.members as unknown[]).length === 0) {
+              s.members = [{ name: "Team Member", role: "Role" }];
+            }
+          }
+
+          // Products defaults
+          if (s.type === "products") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ name: "Product", description: "Our product." }];
+            }
+          }
+
+          // PricingTable defaults
+          if (s.type === "pricingTable") {
+            if (!s.tiers || !Array.isArray(s.tiers) || (s.tiers as unknown[]).length === 0) {
+              s.tiers = [{ name: "Basic", price: "$0", description: "Free tier", features: ["Feature 1"], cta: { text: "Get Started", href: "/contact" } }];
+            }
+          }
+
+          // Gallery defaults
+          if (s.type === "gallery") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ title: "Project", placeholderGradient: "linear-gradient(135deg, #667eea, #764ba2)" }];
+            }
+          }
+
+          // BlogList defaults
+          if (s.type === "blogList") {
+            if (s.showFeatured === undefined) s.showFeatured = true;
+            if (!s.posts || !Array.isArray(s.posts) || (s.posts as unknown[]).length === 0) {
+              s.posts = [{ slug: "post-1", title: "Blog Post", excerpt: "Read more.", category: "News", date: "2026-01-01", readTime: "3 min" }];
+            }
+          }
+
+          // CaseStudies defaults
+          if (s.type === "caseStudies") {
+            if (!s.items || !Array.isArray(s.items) || (s.items as unknown[]).length === 0) {
+              s.items = [{ title: "Case Study", industry: "General", challenge: "The challenge.", solution: "Our solution.", results: ["Great results"] }];
             }
           }
         }
