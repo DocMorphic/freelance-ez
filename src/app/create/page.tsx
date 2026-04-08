@@ -121,7 +121,11 @@ export default function CreatePage() {
     });
     if (!text) return;
 
-    const trimmed = text.trim();
+    // Remove invisible control characters that textareas can introduce
+    const trimmed = text.trim().replace(/[\x00-\x1F\x7F]/g, (ch) => {
+      if (ch === '\n' || ch === '\r' || ch === '\t') return ch;
+      return '';
+    });
     try {
       const parsed = JSON.parse(trimmed);
       if (typeof parsed === "object" && parsed !== null) {
