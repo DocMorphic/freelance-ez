@@ -1,7 +1,24 @@
+/* ===== Demo Banner ===== */
+.demoBanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0.625rem 1rem;
+    background: color-mix(in srgb, var(--t-primary) 15%, var(--t-bg-secondary));
+    border-bottom: 1px solid color-mix(in srgb, var(--t-primary) 20%, transparent);
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--t-text-secondary);
+}
+
 /* ===== Login Page ===== */
 .loginPage {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background: var(--t-bg-secondary);

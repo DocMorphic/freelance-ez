@@ -234,6 +234,10 @@ export default function AdminPage({ companyName, onBack }: AdminPageProps) {
     if (!isLoggedIn) {
         return (
             <div className={styles.loginPage}>
+                <div className={styles.demoBanner}>
+                    Demo Mode — Enter any email/password to preview the admin dashboard.
+                    After export, connect your Supabase project for real authentication.
+                </div>
                 <div className={styles.loginCard}>
                     <div className={styles.loginHeader}>
                         <span className={styles.loginLogo}>{logoLetter}</span>
