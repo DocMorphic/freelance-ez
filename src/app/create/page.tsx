@@ -83,7 +83,8 @@ export default function CreatePage() {
     };
   }
 
-  function loadFormState(data: ReturnType<typeof getFormState>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function loadFormState(data: any) {
     if (data.companyName) setCompanyName(data.companyName);
     if (data.industry) setIndustry(data.industry);
     if (data.tagline) setTagline(data.tagline);
@@ -96,14 +97,18 @@ export default function CreatePage() {
     if (data.city) setCity(data.city);
     if (data.country) setCountry(data.country);
     if (data.whatsapp) setWhatsapp(data.whatsapp);
-    if (data.linkedin) setLinkedin(data.linkedin);
-    if (data.twitter) setTwitter(data.twitter);
-    if (data.instagram) setInstagram(data.instagram);
-    if (data.facebook) setFacebook(data.facebook);
+    // Handle both flat and nested socialLinks
+    const social = data.socialLinks || {};
+    if (data.linkedin || social.linkedin) setLinkedin(data.linkedin || social.linkedin);
+    if (data.twitter || social.twitter) setTwitter(data.twitter || social.twitter);
+    if (data.instagram || social.instagram) setInstagram(data.instagram || social.instagram);
+    if (data.facebook || social.facebook) setFacebook(data.facebook || social.facebook);
     if (data.designDescription) setDesignDescription(data.designDescription);
     if (data.preferDarkMode) setPreferDarkMode(data.preferDarkMode);
     if (data.wantBlog) setWantBlog(data.wantBlog);
     if (data.wantCaseStudies) setWantCaseStudies(data.wantCaseStudies);
+
+    toast.showToast("Data imported successfully!", "success");
   }
 
   // No auto-load or auto-save — user can manually import/export via buttons
